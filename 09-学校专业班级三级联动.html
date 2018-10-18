@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+
+	<body>
+
+		<select id="school">
+		<option value="">请选择学校</option>
+	</select>
+		<select id="xi">
+		<option value="">请选择专业</option>
+	</select>
+		<select id="classes">
+		<option value="">请选择班级</option>
+	</select>
+
+		<script type="text/javascript">
+			var school = ["清华大学", "北京大学", "北京邮电"];
+
+			var xi = [
+				["物理系", "自动化系", "计算机系", "软件工程系", "科学技术系"],
+				["天文系", "新闻系", "地理系"],
+				["通迅系", "无线电系", "无线转播系"]
+			];
+
+			var classes = [
+				[
+					["物理1班", "物理2班", "物理3班"],
+					["自动化系1班", "自动化系2班"],
+					["计算机系1班", "计算机系2班", "计算机系3班", "计算机系4班"],
+					["软件工程1班", "软件工程2班", "软件工程3班", "软件工程4班"]
+				],
+				[
+					["天文系1班", "天文系2班", "天文系3班"],
+					["新闻系1班", "新闻系2班"],
+					["地理系1班", "地理系2班", "地理系3班", "地理系4班"]
+				],
+				[
+					["通迅系1班", "通迅系2班", "通迅系3班"],
+					["无线电系1班", "无线电系2班"],
+					["无线转播系1班", "无线转播系2班", "无线转播系3班", "无线转播系4班"]
+				]
+			];
+			window.onload = function() {
+
+				var schooll = document.getElementById('school');
+				var xii = document.getElementById('xi');
+				var classess = document.getElementById('classes');
+				//循环添加学校
+				for (i = 0; i < school.length; i++) {
+					var opt = new Option(school[i], school[i]);
+					schooll.add(opt);
+					schooll.onchange = function() {
+
+						xii.options.length = 1;
+						classess.options.length = 1;
+						var index = this.selectedIndex;
+						if (index == 0)
+							return;
+						var xiis = xi[index - 1];
+
+						for (var j = 0; j < xiis.length; j++) {
+							var opt = new Option(xi[index - 1][j], xi[index - 1][j]);
+							xii.add(opt);
+
+							xii.onchange = function() {
+								classess.options.length = 1;
+								var choose = this.selectedIndex;
+								if (choose == 0)
+									return;
+								var classess1 = classes[index - 1][choose - 1];
+								for (var k = 0; k <= classess1.length; k++) {
+									var opt = new Option(classes[index - 1][choose - 1][k], classes[index - 1][choose - 1][k]);
+									classess.add(opt);
+									if (k == classess1.length)
+										opt.parentNode.removeChild(opt);
+
+								}
+
+							}
+						}
+					}
+				}
+
+			}
+		</script>
+	</body>
+
+</html>
